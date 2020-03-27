@@ -24,5 +24,23 @@ imputer = SimpleImputer(missing_values = np.nan, strategy = 'mean')
 imputer = imputer.fit(x[:, 1:3])
 x[:, 1:3] = imputer.transform(x[:, 1:3])
 
+#Encoding cat variables into numbers
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
+#turning country into three dummy variables
+#0=no, 1=yes
+#france, spain, germany. it goes in order of the first observations
+ct = ColumnTransformer([('encoder', OneHotEncoder(), [0])], remainder='passthrough')
+x = np.array(ct.fit_transform(x), dtype=np.float)
+
+#encoding the y data 
+#0=no, 1=yes
+from sklearn.preprocessing import LabelEncoder
+y = LabelEncoder().fit_transform(y)
+
+
+
 
 
